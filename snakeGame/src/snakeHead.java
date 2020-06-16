@@ -7,12 +7,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class snakeHead extends Rectangle implements KeyListener{
-	int dx = 0, dy = 0, currentX = 0, currentY = 0, speed = 10;
+	int dx = 0, dy = 0, currentX = 0, currentY = 0, speed = 5;
 	
 	boolean up = false, down = false, left = false, right = false;
 	
 	public snakeHead() {
-		super(1000,1000,50,50);
+		super(500,500,25,25);
 		
 		
 	}
@@ -37,9 +37,6 @@ public class snakeHead extends Rectangle implements KeyListener{
 			dy = 0;
 			dx = speed;
 		}
-		
-		
-			
 		
 		win.setColor(Color.white);
 		win.draw(this);

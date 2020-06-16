@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 public class Enemy extends Rectangle{
-	int dx = 0, dy = 0, speed = 4;
+	int dx = 0, dy = 0, speed = 1;
 	snakeHead mainHead;
 	Food gameFood;
 	int direction = 0, timer = 0, timeDelay = 200;
@@ -37,7 +37,7 @@ public class Enemy extends Rectangle{
 			if(!alive) {
 				if(timer == timeDelay) {
 					alive = true;
-					this.setLocation(gen.nextInt(1500),0);
+					this.setLocation(gen.nextInt(1000),0);
 					timer = 0;
 				}
 				else {

@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Bullets extends Rectangle implements KeyListener {
+public class Laser extends Rectangle implements KeyListener {
 	
 	snakeHead mainHead;
 	Enemy mainEnemy;
@@ -14,8 +14,8 @@ public class Bullets extends Rectangle implements KeyListener {
 	static SoundDriver sound;
 	
 	
-	public Bullets(snakeHead head, Enemy enemy, Food food) {
-		super(-100,0, 100 , 100);
+	public Laser(snakeHead head, Enemy enemy, Food food) {
+		super(-100,0, 25 , 100);
 		mainHead = head;
 		mainFood = food;
 		mainEnemy = enemy;
@@ -37,7 +37,7 @@ public class Bullets extends Rectangle implements KeyListener {
 			win.setColor(Color.red);
 			win.fill(this);
 			
-			if(this.getX() + 50 > 2000 || this.getX() < 0 || this.getY() +50 > 2000 || this.getY() < 0) { //check if hits enemy or out of bounds
+			if(this.getX() + 50 > 1000 || this.getX() < 0 || this.getY() +50 > 1000 || this.getY() < 0) { //check if hits enemy or out of bounds
 				drawn = false;
 			}
 			if(this.intersects(mainEnemy)) {
@@ -45,9 +45,7 @@ public class Bullets extends Rectangle implements KeyListener {
 				drawn = false;
 				mainFood.score++;
 				enemiesKilled++;
-				
 			}
-			
 		}
 	}
 	
@@ -57,7 +55,7 @@ public class Bullets extends Rectangle implements KeyListener {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if(drawn == false) {
-				sound.play(0);				// play sound when shooting lazer
+				sound.play(0);				// play sound when shooting laser
 
 				this.setLocation(mainHead.getLocation());
 				drawn = true;
