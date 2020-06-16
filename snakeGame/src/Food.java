@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Food extends Rectangle {
 	static Random gen = new Random();
-	static int foodPosX = gen.nextInt(850);
-	static int foodPosY = gen.nextInt(850);
+	static int foodPosX = gen.nextInt(800);
+	static int foodPosY = gen.nextInt(800);
 	snakeHead headUsed;
 	snakeBody bodyUsed;
 	Boolean touched = false;
@@ -28,14 +28,17 @@ public class Food extends Rectangle {
 
 		if (score >= 10) {
 			this.translate(dx, dy);
-			if (timer == timeDelay) { // makes food move in direction for long time
+
+			// Choose random direction to move in after timer == timeDelay
+			if (timer == timeDelay) {
 				randomInt = gen.nextInt(4);
 				timer = 0;
 			} else {
 				timer++;
 			}
 
-			if (randomInt == 0) { // random movements for food
+			// random movements for food
+			if (randomInt == 0) {
 				dx = speed;
 			}
 			if (randomInt == 1) {
@@ -47,25 +50,40 @@ public class Food extends Rectangle {
 			if (randomInt == 3) {
 				dy = -speed;
 			}
-			if (this.getX() + 100 > 1000 || this.getX() - 30 < 0) { // food doesn't pass border
+
+			// Make sure food doesn't move past border
+			if (this.getX() + 75 > 1000) {
 				dx *= -1;
+				this.x -= 50;
+				timer = 0;
 			}
-			if (this.getY() + 250 > 1000 || this.getY() - 30 < 0) {
+			if (this.getX() - 75 < 0) {
+				dx *= -1;
+				this.x += 50;
+				timer = 5;
+			}
+			if (this.getY() + 100 > 1000) {
+				this.y -= 50;
 				dy *= -1;
+				timer = 0;
+			}
+			if (this.getY() - 75 < 0) {
+				this.y += 50;
+				dy *= -1;
+				timer = 0;
 			}
 		}
-
-		if (randomIntP == 0) {
-
-			if (collision()) {
-				sound.play(0);
-				this.setLocation(gen.nextInt(600) + 300, gen.nextInt(600) + 300);
-				bodyUsed.addPart();
-				score++;
-			}
+		
+		//Spawn a new apple and increase score
+		if (collision()) {
+			sound.play(0);
+			this.setLocation(gen.nextInt(500) + 300, gen.nextInt(500) + 300);
+			bodyUsed.addPart();
+			score++;
 		}
 	}
-
+	
+	//Check for collision with snake head
 	public boolean collision() {
 		boolean result = false;
 		if (this.intersects(headUsed)) {
