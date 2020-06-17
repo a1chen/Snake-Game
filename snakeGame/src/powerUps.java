@@ -5,11 +5,20 @@ import java.util.Random;
 
 public class powerUps extends Rectangle {
 
+	final static int INCREASE_SCORE = 1;
+	final static int KILL_ENEMY = 2;
+	final static int ENEMY_SPEED_INCREASE = 3;
+	final static int ENEMY_SPEED_DECREASE = 4;
+	final static int DECREASE_SNAKE_SPEED = 5;
+	final static int INCREASE_SNAKE_SPEED = 6;
+	final static int POWER_UP_COUNT = 6;
+
 	snakeHead head;
 	snakeBody body;
 	Food food;
 	Enemy enemy1;
 
+	// Random generator
 	Random gen = new Random();
 	Boolean shown = false, showWord1 = false, showWord2 = false, showWord3 = false, showWord4 = false,
 			showWord5 = false, showWord6 = false;
@@ -49,54 +58,52 @@ public class powerUps extends Rectangle {
 				sound.play(0);
 				this.setLocation(gen.nextInt(700) + 200, gen.nextInt(700) + 200);
 
-				if (whatPower == 1) {
+				if (whatPower == INCREASE_SCORE) {
 					food.score++;
 					showWord1 = true;
 				}
-				if (whatPower == 2) {
+				if (whatPower == KILL_ENEMY) {
 					enemy1.alive = false;
 					showWord2 = true;
 				}
-				if (whatPower == 3) {
+				if (whatPower == ENEMY_SPEED_INCREASE) {
 					enemy1.speed += 1;
 					showWord3 = true;
 				}
-				if (whatPower == 4) {
-					//Make sure speed is at least 1
-					if(enemy1.speed > 2) {
+				if (whatPower == ENEMY_SPEED_DECREASE) {
+					// Make sure speed is at least 1
+					if (enemy1.speed > 2) {
 						enemy1.speed -= 1;
 					}
 					showWord4 = true;
 				}
-				if (whatPower == 5) {
+				if (whatPower == DECREASE_SNAKE_SPEED) {
 					head.speed -= 1;
 					showWord5 = true;
 
 				}
-				if (whatPower == 6) {
-					head.speed -= 1;
+				if (whatPower == INCREASE_SNAKE_SPEED) {
+					head.speed += 1;
 					showWord6 = true;
 				}
 
-				whatPower = gen.nextInt(6) + 1;
+				whatPower = gen.nextInt(POWER_UP_COUNT) + 1;
 				shown = false;
 			}
 
 		}
+		
+		// Display powerup message
 		win.setFont(impactSmall);
-
 		if (showWord1 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
 				showWord1 = false;
-
 			} else {
 				displayTimer++;
 				win.drawString("Score Increase", 50, 150);
 			}
-
 		}
-
 		if (showWord2 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
@@ -107,7 +114,6 @@ public class powerUps extends Rectangle {
 				win.drawString("Enemy killed", 50, 150);
 			}
 		}
-
 		if (showWord3 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
@@ -118,7 +124,6 @@ public class powerUps extends Rectangle {
 				win.drawString("Enemy speed increased", 50, 150);
 			}
 		}
-
 		if (showWord4 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
@@ -129,26 +134,22 @@ public class powerUps extends Rectangle {
 				win.drawString("Enemy speed decreased", 50, 150);
 			}
 		}
-
 		if (showWord5 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
-
 				showWord5 = false;
 			} else {
 				displayTimer++;
-				win.drawString("Snake speed increased", 50, 150);
+				win.drawString("Snake speed decreased", 50, 150);
 			}
 		}
-
 		if (showWord6 == true) {
 			if (displayTimer == displayDelay) {
 				displayTimer = 0;
-
 				showWord6 = false;
 			} else {
 				displayTimer++;
-				win.drawString("Snake speed decreased", 50, 150);
+				win.drawString("Snake speed increased", 50, 150);
 			}
 		}
 	}

@@ -17,10 +17,12 @@ public class Enemy extends Rectangle{
 	}
 	
 	public void draw(Graphics2D win) {
+		//Only spawn if score is greater than 5
 		if(gameFood.score >= 5) {
 			if(alive) {
 				this.translate(dx, dy);
-			
+				
+				//Move towards the snake
 				if(mainHead.getX() > this.getX()) {
 					dx = speed;
 				}
@@ -34,6 +36,7 @@ public class Enemy extends Rectangle{
 					dy = -speed;
 				}
 			}
+			//Spawn a new lumberjack after some time.
 			if(!alive) {
 				if(timer == timeDelay) {
 					alive = true;
@@ -45,7 +48,9 @@ public class Enemy extends Rectangle{
 				}
 			}
 		}
-		else { //enemy isn't show under score of 5
+		
+		//Don't spawn until score is 5
+		else { 
 			
 		}
 			
